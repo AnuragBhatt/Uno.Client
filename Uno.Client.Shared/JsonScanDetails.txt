@@ -1,0 +1,15 @@
+﻿[
+  {
+    "Item": "",
+    "Colour": null,
+    "SPA Number": "",
+    "Rego Number": "",
+    "Trailer": "",
+    "CartonCode": "\r\nSKU: ",
+    "ScanNo:   1": "Item - 1/23\r\n31/03/2022\r\n06:36:07\r\nWSALIBA\r\n31/03/2022\r\n06:36:07\r\nWSALIBA",
+    "ScanNo:   2": null,
+    "ScanNo:   3": null,
+    "ScanNo:   4": null,
+    "ScanNo:   5": null
+  }
+]

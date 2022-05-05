@@ -5,18 +5,161 @@
     xmlns:local="using:Uno.Client"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Uno.Client.ViewModels"
     mc:Ignorable="d"
     Background="White">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBox Text="{Binding SearchText}" Margin="20" FontSize="30" IsEnabled="{x:Bind ViewModel.IsSearchEnabled, Mode=OneWay}" Height="60" Width="500" />
+        <!--<TextBox Text="{Binding SearchText}" Margin="20" FontSize="30" IsEnabled="{x:Bind ViewModel.IsSearchEnabled, Mode=OneWay}" Height="60" Width="500" />
         <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center">
-            <Button Content="Enable Text Box" Click="Button_Click"></Button>
+            <Button Content="Enable Text Box1" Click="Button_Click"></Button>
             <TextBlock Text="Click on the button to enable text box"></TextBlock>
+        </StackPanel>-->
+
+        <!--<ListView Grid.Row="0" ItemsSource="{x:Bind ViewModel.ScansData3, Mode=OneWay}" ItemContainerStyle="{StaticResource ListViewItemStyle}"
+              Name="ListViewTemp" Margin="0,20,0,0" HorizontalAlignment="Stretch" IsHitTestVisible="False" BorderBrush="DimGray" BorderThickness="0,0,0,1">>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="vm:ScanRow">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ItemsControl Grid.Row="0" ItemsSource="{x:Bind ScanCells}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="x:String">
+                                    <ScrollViewer>
+                                        <Grid Padding="10" Background="{x:Bind IsHeader, Converter={StaticResource BoolToBackgroundConverter}}"
+                                            BorderBrush="DimGray" BorderThickness="0,0,1,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="{x:Bind Size}"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{x:Bind Title}" TextWrapping="WrapWholeWords" FontWeight="Bold" TextTrimming="CharacterEllipsis"
+                                               Visibility="{Binding IsHeader, Converter={StaticResource BoolToVisibilityConverter}}" Foreground="White"/>
+                                            <TextBlock Text="{x:Bind Value}" TextWrapping="WrapWholeWords" TextTrimming="CharacterEllipsis"/>
+                                        </Grid>
+                                    </ScrollViewer>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>-->
+        <!--<ListView Grid.Row="0" ItemsSource="{x:Bind ViewModel.ScansData, Mode=OneWay}" VerticalAlignment="Top" Width="1000" 
+                  Height="1000"
+                  ScrollViewer.HorizontalScrollMode="Enabled"
+                  HorizontalAlignment="Left"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+          ScrollViewer.IsHorizontalRailEnabled="True" />-->
+        <StackPanel Grid.Row="0">
+            <ItemsControl ItemsSource="{x:Bind ViewModel.ScansHeader, Mode=OneWay}" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Border Background="#001A72">
+                        <TextBlock Text="{x:Bind}" Width="100" Padding="10,0,0,0" Foreground="White"></TextBlock>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            <ListView Grid.Row="0" ItemsSource="{x:Bind ViewModel.ScansData3, Mode=OneWay}" VerticalAlignment="Top" Width="1000" 
+                  SelectedItem="{x:Bind ViewModel.ScansDataSelected, Mode=TwoWay}"
+                  Height="1000"
+                  ScrollViewer.HorizontalScrollMode="Enabled"
+                  HorizontalAlignment="Left"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+          ScrollViewer.IsHorizontalRailEnabled="True" x:Name="lstScan">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="BorderBrush" Value="LightGray" />
+                    <Setter Property="BorderThickness" Value="0,0,0,1" />
+                    <Setter Property="MinHeight" Value="1"/>
+                    <!--<Setter Property="Height" Value="25" />-->
+                    <!--<Setter Property="Height" Value="25" />-->
+                    <Setter Property="FontSize" Value="12"/>
+                    <!--<Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <ListViewItemPresenter Height="100"></ListViewItemPresenter>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>-->
+                </Style>
+                
+            </ListView.ItemContainerStyle>
+            <!--<ListView.hi>
+                <Style TargetType="ListViewItemPresenter">
+                    <Setter Property="Height" Value="100" />
+                </Style>
+            </ListView.hi>-->
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel CacheLength="0" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.HeaderTemplate>
+                <DataTemplate>
+                    <ItemsControl ItemsSource="{Binding DataContext.ScansHeader, ElementName=lstScan}" >
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <TextBlock Text="{x:Bind}" Width="100"></TextBlock>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </DataTemplate>
+            </ListView.HeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="vm:ScanRow">
+                    <StackPanel>
+                    <ItemsControl ItemsSource="{x:Bind ScanCells}" Background="{x:Bind RowColor}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <TextBlock Text="{x:Bind}" Width="100"></TextBlock>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    <!--<Line HorizontalAlignment="Stretch" Stroke="Black" StrokeThickness="2" />-->
+                            <TextBlock Text=" "/>
+                            <ItemsControl ItemsSource="{x:Bind ScanDetailCells, Mode=OneWay}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <TextBlock Text="{x:Bind}" Width="100"></TextBlock>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         </StackPanel>
     </Grid>
 </Page>
